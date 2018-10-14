@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="jquery-1.11.1.min.js"></script>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			ul{
+				list-style: none;
+				margin: 100px;
+			}
+			.comment{
+				color: red;
+			}
+			.comment li{
+				float: left;
+				font-size: 40px;
+				margin-left: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<ul class="comment">
+			<li>☆</li>
+			<li>☆</li>
+			<li>☆</li>
+			<li>☆</li>
+			<li>☆</li>
+		</ul>
+	</body>
+</html>
+<script type="text/javascript">
+	/*
+	 思路：
+	 1、鼠标移入   ：当前星星和前面的为实心   
+	 		   	     当前操作的星星后面的为空心
+	 2、鼠标移出  ：未点击：全部空心
+	 	 		     有点击：当前点击的星星和前面的是实心的
+	 3、鼠标点击：
+	     		     当前点击的星星和前面的是实心的
+	*/
+var wjx_null="☆";
+var wjx_sel="★";
+$(".comment").on("mouseover","li",function(){
+	$(this).text(wjx_sel)
+			.prevAll()
+			.text(wjx_sel)//当前星星和前面的为实心   
+			.end()
+			.nextAll()
+			.text(wjx_null);// 当前操作的星星后面的为空心
+}).on("mouseout","li",function(){
+	$("li").text(wjx_null);//未点击：全部空心
+	$(".clicked").text(wjx_sel)
+				  .prevAll()
+				  .text(wjx_sel);//有点击：当前点击的星星和前面的是实心的
+}).on("click","li",function(){
+	//点击时  为当前点击的li记录一个类  标记哪一个li被点击了
+	$(this).addClass("clicked").siblings().removeClass("clicked");
+})
+</script>
